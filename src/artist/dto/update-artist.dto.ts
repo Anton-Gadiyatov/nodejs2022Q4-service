@@ -5,7 +5,7 @@ import {
   STRING_FIELD_ERROR,
 } from 'src/utils/constants';
 
-export class UpdatePasswordDto {
+export class UpdateArtistDto {
   @IsString({ message: `name ${STRING_FIELD_ERROR}` })
   @IsNotEmpty({ message: `name ${EMPTY_FIELD_ERROR}` })
   name: string;

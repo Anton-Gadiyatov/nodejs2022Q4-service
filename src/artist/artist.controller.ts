@@ -1,6 +1,19 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { validateUuid } from 'src/utils/validateUuid';
 import { ArtistService } from './artist.service';
+import { CreateArtistDto } from './dto/create-artist.dto';
+import { UpdateArtistDto } from './dto/update-artist.dto';
 
 @Controller('artist')
 export class ArtistController {
@@ -18,29 +31,29 @@ export class ArtistController {
     return this.artistService.getArtistsById(id);
   }
 
-  // @UsePipes(new ValidationPipe())
-  // @Post()
-  // createUser(@Body() user: CreateUserDto) {
-  //   return this.userService.createUser(user);
-  // }
+  @UsePipes(new ValidationPipe())
+  @Post()
+  createArtist(@Body() artist: CreateArtistDto) {
+    return this.artistService.createArtist(artist);
+  }
 
-  // @UsePipes(new ValidationPipe())
-  // @Put(':id')
-  // updateUserPassword(
-  //   @Param('id') id: string,
-  //   @Body()
-  //   updatedUser: UpdatePasswordDto,
-  // ) {
-  //   validateUuid(id);
+  @UsePipes(new ValidationPipe())
+  @Put(':id')
+  updateArtist(
+    @Param('id') id: string,
+    @Body()
+    updatedArtist: UpdateArtistDto,
+  ) {
+    validateUuid(id);
 
-  //   return this.userService.updateUserPassword(id, updatedUser);
-  // }
+    return this.artistService.updateArtist(id, updatedArtist);
+  }
 
-  // @HttpCode(204)
-  // @Delete(':id')
-  // deleteUser(@Param('id') id: string) {
-  //   validateUuid(id);
+  @HttpCode(204)
+  @Delete(':id')
+  deleteArtist(@Param('id') id: string) {
+    validateUuid(id);
 
-  //   return this.userService.deleteUser(id);
-  // }
+    return this.artistService.deleteArtist(id);
+  }
 }

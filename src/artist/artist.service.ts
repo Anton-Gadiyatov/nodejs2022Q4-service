@@ -1,6 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { DATABASE } from 'src/db/database';
 import { ARTIST_NOT_FOUND } from 'src/utils/constants';
+import { Artist } from './artist.entity';
+import { CreateArtistDto } from './dto/create-artist.dto';
+import { UpdateArtistDto } from './dto/update-artist.dto';
 
 @Injectable()
 export class ArtistService {
@@ -16,35 +19,30 @@ export class ArtistService {
     return artist;
   }
 
-  // createUser(user: CreateUserDto) {
-  //   const newUser = new User(user);
-  //   DATABASE.user.push(newUser);
-  //   const usersWithOutPassword = removePasswordFromUser(newUser);
-  //   return usersWithOutPassword;
-  // }
+  createArtist(artist: CreateArtistDto) {
+    const newArtist = new Artist(artist);
+    DATABASE.artist.push(newArtist);
+    return newArtist;
+  }
 
-  // updateUserPassword(id: string, updatedUser: UpdatePasswordDto) {
-  //   const user = DATABASE.user.find((user) => user.id === id);
-  //   if (!user) {
-  //     throw new HttpException(USER_NOT_FOUND, HttpStatus.NOT_FOUND);
-  //   }
-  //   if (user.password !== updatedUser.oldPassword) {
-  //     throw new HttpException(OLD_PASSWORD_ERROR, HttpStatus.FORBIDDEN);
-  //   }
-  //   user.password = updatedUser.newPassword;
-  //   user.version += 1;
-  //   user.updatedAt = new Date().getTime();
+  updateArtist(id: string, updatedArtist: UpdateArtistDto) {
+    const artist = DATABASE.artist.find((artist) => artist.id === id);
+    if (!artist) {
+      throw new HttpException(ARTIST_NOT_FOUND, HttpStatus.NOT_FOUND);
+    }
 
-  //   const usersWithOutPassword = removePasswordFromUser(user);
-  //   return usersWithOutPassword;
-  // }
+    artist.name = updatedArtist.name;
+    artist.grammy = updatedArtist.grammy;
 
-  // deleteUser(id: string) {
-  //   const user = DATABASE.user.find((user) => user.id === id);
-  //   if (!user) {
-  //     throw new HttpException(USER_NOT_FOUND, HttpStatus.NOT_FOUND);
-  //   }
-  //   const userIndex = DATABASE.user.findIndex((user) => user.id === id);
-  //   DATABASE.user.splice(userIndex, 1);
-  // }
+    return artist;
+  }
+
+  deleteArtist(id: string) {
+    const artist = DATABASE.artist.find((artist) => artist.id === id);
+    if (!artist) {
+      throw new HttpException(ARTIST_NOT_FOUND, HttpStatus.NOT_FOUND);
+    }
+    const artistIndex = DATABASE.artist.findIndex((artist) => artist.id === id);
+    DATABASE.artist.splice(artistIndex, 1);
+  }
 }
