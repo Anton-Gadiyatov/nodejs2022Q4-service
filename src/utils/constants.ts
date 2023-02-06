@@ -9,3 +9,4 @@ export const OLD_PASSWORD_ERROR = 'Old password is wrong';
 export const USER_NOT_FOUND = "User with given id doesn't exist";
 export const ARTIST_NOT_FOUND = "Artist with given id doesn't exist";
 export const ALBUM_NOT_FOUND = "Album with given id doesn't exist";
+export const TRACK_NOT_FOUND = "Track with given id doesn't exist";

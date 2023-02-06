@@ -42,6 +42,12 @@ export class ArtistService {
     if (!artist) {
       throw new HttpException(ARTIST_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
+    DATABASE.album.forEach((album) => {
+      if (album.artistId === id) {
+        album.artistId = null;
+      }
+    });
+
     const artistIndex = DATABASE.artist.findIndex((artist) => artist.id === id);
     DATABASE.artist.splice(artistIndex, 1);
   }

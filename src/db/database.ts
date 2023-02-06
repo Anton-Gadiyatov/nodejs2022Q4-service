@@ -1,22 +1,24 @@
 import { IAlbum } from 'src/album/album.interface';
 import { IArtist } from 'src/artist/artist.interface';
+import { ITrack } from 'src/track/track.interface';
 import { IUser } from 'src/user/user.interface';
 
 interface Database {
   user: IUser[];
   artist: IArtist[];
   album: IAlbum[];
+  track: ITrack[];
 }
 export const DATABASE: Database = {
   user: [
-    // {
-    //   id: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
-    //   login: 'string',
-    //   password: 'string',
-    //   version: 1,
-    //   createdAt: new Date().getTime(),
-    //   updatedAt: new Date().getTime(),
-    // },
+    {
+      id: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
+      login: 'string',
+      password: 'string',
+      version: 1,
+      createdAt: new Date().getTime(),
+      updatedAt: new Date().getTime(),
+    },
   ],
   artist: [
     {
@@ -31,6 +33,15 @@ export const DATABASE: Database = {
       name: 'album',
       year: 1455,
       artistId: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
+    },
+  ],
+  track: [
+    {
+      id: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
+      name: 'track',
+      artistId: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
+      albumId: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
+      duration: 123,
     },
   ],
 };
