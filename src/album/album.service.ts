@@ -1,6 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { DATABASE } from 'src/db/database';
 import { ALBUM_NOT_FOUND } from 'src/utils/constants';
+import { Album } from './album.entity';
+import { CreateAlbumDto } from './dto/create-album.dto';
+import { UpdateAlbumDto } from './dto/update-album.dto';
 
 @Injectable()
 export class AlbumService {
@@ -16,30 +19,31 @@ export class AlbumService {
     return album;
   }
 
-  // createArtist(artist: CreateArtistDto) {
-  //   const newArtist = new Artist(artist);
-  //   DATABASE.artist.push(newArtist);
-  //   return newArtist;
-  // }
+  createAlbum(album: CreateAlbumDto) {
+    const newAlbum = new Album(album);
+    DATABASE.album.push(newAlbum);
+    return newAlbum;
+  }
 
-  // updateArtist(id: string, updatedArtist: UpdateArtistDto) {
-  //   const artist = DATABASE.artist.find((artist) => artist.id === id);
-  //   if (!artist) {
-  //     throw new HttpException(ARTIST_NOT_FOUND, HttpStatus.NOT_FOUND);
-  //   }
+  updateAlbum(id: string, updatedAlbum: UpdateAlbumDto) {
+    const album = DATABASE.album.find((album) => album.id === id);
+    if (!album) {
+      throw new HttpException(ALBUM_NOT_FOUND, HttpStatus.NOT_FOUND);
+    }
 
-  //   artist.name = updatedArtist.name;
-  //   artist.grammy = updatedArtist.grammy;
+    album.name = updatedAlbum.name;
+    album.year = updatedAlbum.year;
+    album.artistId = updatedAlbum.artistId;
 
-  //   return artist;
-  // }
+    return album;
+  }
 
-  // deleteArtist(id: string) {
-  //   const artist = DATABASE.artist.find((artist) => artist.id === id);
-  //   if (!artist) {
-  //     throw new HttpException(ARTIST_NOT_FOUND, HttpStatus.NOT_FOUND);
-  //   }
-  //   const artistIndex = DATABASE.artist.findIndex((artist) => artist.id === id);
-  //   DATABASE.artist.splice(artistIndex, 1);
-  // }
+  deleteAlbum(id: string) {
+    const album = DATABASE.album.find((album) => album.id === id);
+    if (!album) {
+      throw new HttpException(ALBUM_NOT_FOUND, HttpStatus.NOT_FOUND);
+    }
+    const albumIndex = DATABASE.album.findIndex((album) => album.id === id);
+    DATABASE.album.splice(albumIndex, 1);
+  }
 }
