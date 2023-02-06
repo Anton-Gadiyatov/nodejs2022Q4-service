@@ -3,18 +3,15 @@ import {
   Controller,
   Get,
   Put,
-  HttpException,
-  HttpStatus,
   Param,
   Post,
   ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { validate } from 'uuid';
-import { NOT_VALID_UUID } from 'src/utils/constants';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UsePipes } from '@nestjs/common/decorators';
+import { Delete, HttpCode, UsePipes } from '@nestjs/common/decorators';
 import { UpdatePasswordDto } from './dto/update-user-password.dto';
+import { validateUuid } from 'src/utils/validateUuid';
 
 @Controller('user')
 export class UserController {
@@ -27,9 +24,8 @@ export class UserController {
 
   @Get(':id')
   getUserById(@Param('id') id: string) {
-    if (!validate(id)) {
-      throw new HttpException(NOT_VALID_UUID, HttpStatus.BAD_REQUEST);
-    }
+    validateUuid(id);
+
     return this.userService.getUserById(id);
   }
 
@@ -46,6 +42,16 @@ export class UserController {
     @Body()
     updatedUser: UpdatePasswordDto,
   ) {
+    validateUuid(id);
+
     return this.userService.updateUserPassword(id, updatedUser);
+  }
+
+  @HttpCode(204)
+  @Delete(':id')
+  deleteUser(@Param('id') id: string) {
+    validateUuid(id);
+
+    return this.userService.deleteUser(id);
   }
 }
