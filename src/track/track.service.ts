@@ -44,6 +44,10 @@ export class TrackService {
     if (!track) {
       throw new HttpException(TRACK_NOT_FOUND, HttpStatus.NOT_FOUND);
     }
+    const trackFavIndex = DATABASE.favs.tracks.findIndex(
+      (track) => track === id,
+    );
+    DATABASE.favs.tracks.splice(trackFavIndex, 1);
     const trackIndex = DATABASE.track.findIndex((track) => track.id === id);
     DATABASE.track.splice(trackIndex, 1);
   }

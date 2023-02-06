@@ -8,6 +8,11 @@ interface Database {
   artist: IArtist[];
   album: IAlbum[];
   track: ITrack[];
+  favs: {
+    artists: string[];
+    albums: string[];
+    tracks: string[];
+  };
 }
 export const DATABASE: Database = {
   user: [
@@ -44,4 +49,9 @@ export const DATABASE: Database = {
       duration: 123,
     },
   ],
+  favs: {
+    artists: [],
+    albums: [],
+    tracks: [],
+  },
 };
