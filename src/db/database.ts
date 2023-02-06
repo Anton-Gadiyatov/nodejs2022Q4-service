@@ -9,46 +9,16 @@ interface Database {
   album: IAlbum[];
   track: ITrack[];
   favs: {
-    artists: string[];
-    albums: string[];
-    tracks: string[];
+    artists: IArtist[];
+    albums: IAlbum[];
+    tracks: ITrack[];
   };
 }
 export const DATABASE: Database = {
-  user: [
-    {
-      id: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
-      login: 'string',
-      password: 'string',
-      version: 1,
-      createdAt: new Date().getTime(),
-      updatedAt: new Date().getTime(),
-    },
-  ],
-  artist: [
-    {
-      id: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
-      name: 'string',
-      grammy: true,
-    },
-  ],
-  album: [
-    {
-      id: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
-      name: 'album',
-      year: 1455,
-      artistId: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
-    },
-  ],
-  track: [
-    {
-      id: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
-      name: 'track',
-      artistId: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
-      albumId: 'c29df767-1f3f-4bd1-93ee-6c2754d467fb',
-      duration: 123,
-    },
-  ],
+  user: [],
+  artist: [],
+  album: [],
+  track: [],
   favs: {
     artists: [],
     albums: [],

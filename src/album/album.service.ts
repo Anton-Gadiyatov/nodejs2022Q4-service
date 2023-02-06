@@ -50,7 +50,7 @@ export class AlbumService {
     });
 
     const albumFavIndex = DATABASE.favs.albums.findIndex(
-      (album) => album === id,
+      (album) => album.id === id,
     );
     DATABASE.favs.albums.splice(albumFavIndex, 1);
 

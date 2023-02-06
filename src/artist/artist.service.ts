@@ -54,7 +54,7 @@ export class ArtistService {
     });
 
     const artistFavIndex = DATABASE.favs.artists.findIndex(
-      (artist) => artist === id,
+      (artist) => artist.id === id,
     );
     DATABASE.favs.artists.splice(artistFavIndex, 1);
 

@@ -12,20 +12,22 @@ import {
 @Injectable()
 export class FavsService {
   getFavs() {
-    const tracks = DATABASE.favs.tracks.map((favTrack) => {
-      return DATABASE.track.find((track) => track.id === favTrack);
-    });
-    const albums = DATABASE.favs.albums.map((favAlbum) => {
-      return DATABASE.album.find((album) => album.id === favAlbum);
-    });
-    const artists = DATABASE.favs.artists.map((favArtist) => {
-      return DATABASE.artist.find((artist) => artist.id === favArtist);
-    });
-    return {
-      artists,
-      albums,
-      tracks,
-    };
+    // const tracks = DATABASE.favs.tracks.map((favTrack) => {
+    //   return DATABASE.track.find((track) => track.id === favTrack);
+    // });
+    // const albums = DATABASE.favs.albums.map((favAlbum) => {
+    //   return DATABASE.album.find((album) => album.id === favAlbum);
+    // });
+    // const artists = DATABASE.favs.artists.map((favArtist) => {
+    //   return DATABASE.artist.find((artist) => artist.id === favArtist);
+    // });
+    // return {
+    //   artists,
+    //   albums,
+    //   tracks,
+    // };
+
+    return DATABASE.favs;
   }
 
   addTrack(trackId) {
@@ -36,13 +38,13 @@ export class FavsService {
     if (!track) {
       throw new HttpException(TRACK_NOT_FOUND, HttpStatus.UNPROCESSABLE_ENTITY);
     }
-    DATABASE.favs.tracks.push(trackId);
+    DATABASE.favs.tracks.push(track);
     return track;
   }
 
   deleteTrack(trackId) {
     const trackFavIndex = DATABASE.favs.tracks.findIndex(
-      (track) => track === trackId,
+      (track) => track.id === trackId,
     );
     if (trackFavIndex === -1) {
       throw new HttpException(TRACK_NOT_FOUND, HttpStatus.NOT_FOUND);
@@ -58,13 +60,13 @@ export class FavsService {
     if (!album) {
       throw new HttpException(ALBUM_NOT_FOUND, HttpStatus.UNPROCESSABLE_ENTITY);
     }
-    DATABASE.favs.albums.push(albumId);
+    DATABASE.favs.albums.push(album);
     return album;
   }
 
   deleteAlbum(albumId) {
     const albumFavIndex = DATABASE.favs.albums.findIndex(
-      (album) => album === albumId,
+      (album) => album.id === albumId,
     );
     if (albumFavIndex === -1) {
       throw new HttpException(ALBUM_NOT_FOUND, HttpStatus.NOT_FOUND);
@@ -84,13 +86,13 @@ export class FavsService {
       );
     }
 
-    DATABASE.favs.artists.push(artistId);
+    DATABASE.favs.artists.push(artist);
     return artist;
   }
 
   deleteArtist(artistId) {
     const artistFavIndex = DATABASE.favs.artists.findIndex(
-      (artist) => artist === artistId,
+      (artist) => artist.id === artistId,
     );
     if (artistFavIndex === -1) {
       throw new HttpException(ARTIST_ALREADY_EXIST, HttpStatus.NOT_FOUND);
